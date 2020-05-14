@@ -46,7 +46,7 @@ const newQuestion = () => {
         choices: shuffle(questions[index].incorrect_answers)
     })
         .then(({ answer }) => {
-            if (answer === questions[index].correct_answer) {
+            if (answer === questions[index].incorrect_answer) {
                 console.log('Correct Answer!')
                 index++
                 points++
@@ -62,7 +62,6 @@ const newQuestion = () => {
     } else {
         endGame()
     }
-    
 }
 
 const newGame = () => {
@@ -107,7 +106,7 @@ const getCategories = () => {
 }
 
 const viewLeaderboard = () => {
-    readFile('leaderboard.json', 'utf8')
+    rf('leaderboard.json', 'utf8')
         .then(data => {
             let leaderboard = JSON.parse(data)
             let leaderboardSorted = leaderboard.sort((a, b) => {
@@ -125,7 +124,7 @@ const mainMenu = () => {
         type: 'list',
         name: 'action',
         message: 'What would you like to do?',
-        choices: ['New Game', 'View Leaderboard']
+        choices: ['New Game', 'View Leaderboard', 'EXIT']
     })
         .then(({ action  }) => {
             switch(action) {
